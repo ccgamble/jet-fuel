@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="reset.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Diplomata|Reem+Kufi" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Jet Fuel</title>
+  </head>
+  <body class='ui-container'>
+    <section class='ui-container'>
+      <h1>Jet Fuel</h1>
+      <main class='input-container'>
+        <label>Enter any URL</label>
+        <input type='text'/>
+        <button class='url-submit' type='submit'>Submit URL</button>
+      </main>
+      <main class='input-container'>
+        <label>Categorize in folder</label>
+        <input type='text'/>
+        <button class='folder-submit' type='submit'>Submit FOLDER</button>
+      </main>
+    </section>
+
+    <section class='feature-container'>
+      <label>Search</label>
+      <input type='search'/>
+      <label>Sort by Clicks</label>
+      <button> ↑ </button>
+      <button> ↓ </button>
+    </section>
+
+    <section class='folder-display'>
+      URLS HERE
+    </section>
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="scripts.js"></script>
+  </body>
+</html>

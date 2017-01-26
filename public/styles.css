@@ -1,0 +1,51 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: 'Reem Kufi', sans-serif;
+  text-align: center;
+}
+
+input {
+  width: 50%;
+  height: 30px;
+  margin: 20px;
+  border-radius: 20px;
+}
+
+label {
+  padding-right: 10px;
+  font-size: 1.5em;
+}
+
+button {
+  height: 28px;
+  border-radius: 5px;
+  background-color: orange;
+  font-size: 1.1em;
+  border: none;
+}
+
+button:hover {
+  background-color: white;
+}
+
+h1 {
+  font-family: 'Diplomata', cursive;
+  font-size: 100px;
+}
+.input-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-top: 10%;
+}
+.ui-container {
+  padding: 5% 10% 10% 10%;
+
+}
+.url-display {
+  border-top: 3px solid white;
+  margin-top: 10px;
+  padding-top: 10px;
+}
