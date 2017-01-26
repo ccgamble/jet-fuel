@@ -1,5 +1,7 @@
 function addFolder(data) {
 	$('.dropdown-folder').append(`<option id=${data.id}>${data.title}</option>`)
+
+	$('.folder-display').append(`<p id=${data.id}>${data.title}</p>`)
 }
 
 $('.url-submit').on('click', (e) => {
