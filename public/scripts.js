@@ -1,23 +1,30 @@
-
+function addFolder(data) {
+	$('.dropdown-folder').append(`<option id=${data.id}>${data.title}</option>`)
+}
 
 $('.url-submit').on('click', (e) => {
-  e.preventDefault();
-  console.log("hello");
 });
 
 $('.folder-submit').on('click', (e) => {
-  fetchBookmarks();
-  console.log("hello");
+	e.preventDefault();
+	$.ajax({
+		url: '/api/folders',
+		type: 'post',
+		data: {
+			folder: $('.folder-input').val()
+		},
+		success : addFolder
+	})
 });
 
-function fetchBookmarks () {
-  axios.get('/api/folders')
-  .then((response) => {
-    debugger
-    console.log(response);
-    // $('.folder-display').append(response.);
-  })
-  .catch(function(error) {
-  console.log('Error receiving bookmarks')
-})
-}
+// function fetchFolders () {
+//   axios.get('/api/folders')
+//   .then((response) => {
+//     debugger
+//     console.log(response);
+//     // $('.folder-display').append(response.);
+//   })
+//   .catch(function(error) {
+//   console.log('Error receiving folders')
+// })
+// }

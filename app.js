@@ -1,31 +1,18 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+const express = require('express');
 const app = express();
 const path = require('path');
+const bodyParser = require('body-parser');
 const md5 = require('md5');
+const moment = require('moment');
+const shortid = require('shortid');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('port', process.envPORT || 3000);
 
-app.locals.folders = [
-  {
-    0: 'folder one'
-  },
-  {
-    1: 'folder two'
-  }
-]
-app.locals.urls = [
-  {
-    folderId: '1',
-    url: 'www.google.com',
-		shorturl: 0,
-    date: Date.now(),
-    clickCount: 0
-  }
-]
+app.locals.folders = []
+app.locals.urls = []
 
 app.get('/', (request, response) => {
 });
@@ -34,13 +21,20 @@ app.get('/api/folders', (request, response) => {
   response.json(app.locals.folders);
 });
 
-app.post('/api/folders', (request, response) => {
-	const { folderName } = request.body;
-	const folderID = md5(folderName);
+app.get('/api/urls', (request, response) => {
+	response.json(app.locals.urls)
+})
 
-  app.locals.folders[folderID] = folderName;
-  console.log(folderID, folderName);
-  response.json({ folderID, folderName})
+app.post('/api/folders', (request, response) => {
+  const { folder } = request.body
+  const id = md5(folder)
+
+  app.locals.folders.push({ folder_title: folder, id: id})
+
+  response.status(201).json({
+      title: folder,
+      id: id
+   })
 });
 
 app.get('/api/folders/:folderID', (request, response) => {
