@@ -38,14 +38,17 @@ app.get('/api/folders/:folderID', (request, response) => {
 app.post('/api/folders', (request, response) => {
   const { folder } = request.body
   const id = md5(folder)
-	const folder_object = {folder_title: folder, id: id}
 
 	if(!folder) {
-		response.status(422).send('No folder provided');
+		return response.status(422).send('No folder in input field')
 	}
 
-  app.locals.folders.push(folder_object)
-  response.status(201).json(folder_object)
+  app.locals.folders.push({ folder_title: folder, id: id})
+
+  response.status(201).json({
+      title: folder,
+      id: id
+   })
 });
 
 app.post('/api/urls', (request, response) => {
@@ -54,20 +57,26 @@ app.post('/api/urls', (request, response) => {
 	const id = md5(url)
 	const short_url = 'http://' + shortid.generate()
 	const created_at = moment()
-	const url_object = {
+
+	if(!url) {
+		return response.status(422).send('No url in input field')
+	}
+
+	app.locals.urls.push({
 		id : id,
 		folder_id: folder_id,
 		original_url: url,
 		short_url: short_url,
 		created_at: created_at
-	}
+	})
 
-	if(!url) {
-		response.status(422).send('No url provided in the input field.')
-	}
-
-	app.locals.urls.push(url_object)
-	response.status(201).json(url_object)
+	response.status(201).json({
+		id : id,
+		folder_id: folder_id,
+		original_url: url,
+		short_url: short_url,
+		created_at: created_at
+	})
 
 })
 
