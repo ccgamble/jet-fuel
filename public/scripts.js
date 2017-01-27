@@ -1,7 +1,7 @@
 function addFolder(data) {
 	$('.dropdown-folder').append(`<option id=${data.id}>${data.title}</option>`)
 
-	$('.folder-display').append(`<a href="www.localhost:3000/api/folders/${data.id}">${data.title}</a>`)
+	$('.folder-display').append(`<a href="www.localhost:3000/api/folders/${data.id}">${data.title}</a><br/>`)
 }
 
 $('.url-submit').on('click', (e) => {

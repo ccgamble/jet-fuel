@@ -25,48 +25,42 @@ app.get('/api/urls', (request, response) => {
 	response.json(app.locals.urls)
 })
 
+app.get('/api/folders/:folderID', (request, response) => {
+	const {folderID} = request.params;
+	const folder = app.locals.folders[folderID]
+
+	if(!folder){
+		response.sendStatus(404);
+	}
+	response.json({folder})
+});
+
 app.post('/api/folders', (request, response) => {
   const { folder } = request.body
   const id = md5(folder)
+	const folder_object = {folder_title: folder, id: id}
 
-  app.locals.folders.push({ folder_title: folder, id: id})
-
-  response.status(201).json({
-      title: folder,
-      id: id
-   })
+  app.locals.folders.push(folder_object)
+  response.status(201).json(folder_object)
 });
 
-app.get('/api/folders/:folderID', (request, response) => {
-  const {folderID} = request.params;
-  const folder = app.locals.folders[folderID]
+app.post('/api/urls', (request, response) => {
 
-  if(!folder){
-    response.sendStatus(404);
-  }
-  response.json({folder})
-});
-
-app.post('/api/folders/:folderID', (request, response) => {
-	const {folderID} = request.params;
-	const { url } = request.body;
-	const urlId = md5(url);
-
-	app.locals.urls[urlId] = {
-		folderID,
-		url,
-		shorturl: urlId,
-		date: Date.now(),
-		clickCount: 0
+	const { url, folder_id } = request.body
+	const id = md5(url)
+	const short_url = 'http://' + shortid.generate()
+	const created_at = moment()
+	const url_object = {
+		id : id,
+		folder_id: folder_id,
+		original_url: url,
+		short_url: short_url,
+		created_at: created_at
 	}
-	response.json(app.locals.urls)
-});
 
-app.get('/api/folders/:folderid/:shorturl', (request, response) => {
-  const {folderid, shorturl} = request.params
-  const url = app.locals.urls[shorturl]
+	app.locals.urls.push(url_object)
+	response.status(201).json(url_object)
 
-  response.json(url)
 })
 
 app.listen(3000, () => {
