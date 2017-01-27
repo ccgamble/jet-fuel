@@ -14,52 +14,52 @@ app.set('port', process.envPORT || 3000);
 app.locals.folders = []
 app.locals.urls = []
 
-app.get('/', (request, response) => {
+app.get('/', (req, res) => {
 });
 
-app.get('/api/folders', (request, response) => {
-  response.json(app.locals.folders);
+app.get('/api/folders', (req, res) => {
+  res.json(app.locals.folders);
 });
 
-app.get('/api/urls', (request, response) => {
-	response.json(app.locals.urls)
+app.get('/api/urls', (req, res) => {
+	res.json(app.locals.urls)
 })
 
-app.get('/api/folders/:folderID', (request, response) => {
-	const {folderID} = request.params;
+app.get('/api/folders/:folderID', (req, res) => {
+	const {folderID} = req.params;
 	const folder = app.locals.folders[folderID]
 
 	if(!folder){
-		response.sendStatus(404);
+		res.sendStatus(404);
 	}
-	response.json({folder})
+	res.json({folder})
 });
 
-app.post('/api/folders', (request, response) => {
-  const { folder } = request.body
+app.post('/api/folders', (req, res) => {
+  const { folder } = req.body
   const id = md5(folder)
 
 	if(!folder) {
-		return response.status(422).send('No folder in input field')
+		return res.status(422).send('No folder in input field')
 	}
 
   app.locals.folders.push({ folder_title: folder, id: id})
 
-  response.status(201).json({
+  res.status(201).json({
       title: folder,
       id: id
    })
 });
 
-app.post('/api/urls', (request, response) => {
+app.post('/api/urls', (req, res) => {
 
-	const { url, folder_id } = request.body
+	const { url, folder_id } = req.body
 	const id = md5(url)
 	const short_url = 'http://' + shortid.generate()
 	const created_at = moment()
 
 	if(!url) {
-		return response.status(422).send('No url in input field')
+		return res.status(422).send('No url in input field')
 	}
 
 	app.locals.urls.push({
@@ -70,7 +70,7 @@ app.post('/api/urls', (request, response) => {
 		created_at: created_at
 	})
 
-	response.status(201).json({
+	res.status(201).json({
 		id : id,
 		folder_id: folder_id,
 		original_url: url,
