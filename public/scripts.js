@@ -1,7 +1,7 @@
 function addFolder(data) {
 	$('.dropdown-folder').append(`<option id=${data.id}>${data.title}</option>`)
 
-	$('.folder-display').append(`<p id=${data.id}>${data.title}</p>`)
+	$('.folder-display').append(`<a href="www.localhost:3000/api/folders/${data.id}">${data.title}</a>`)
 }
 
 $('.url-submit').on('click', (e) => {
@@ -19,14 +19,14 @@ $('.folder-submit').on('click', (e) => {
 	})
 });
 
-// function fetchFolders () {
-//   axios.get('/api/folders')
-//   .then((response) => {
-//     debugger
-//     console.log(response);
-//     // $('.folder-display').append(response.);
-//   })
-//   .catch(function(error) {
-//   console.log('Error receiving folders')
-// })
-// }
+function fetchFolders () {
+  axios.get('/api/folders')
+  .then((response) => {
+    debugger
+    console.log(response);
+    // $('.folder-display').append(response.);
+  })
+  .catch(function(error) {
+  console.log('Error receiving folders')
+})
+}
