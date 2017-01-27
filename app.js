@@ -40,6 +40,10 @@ app.post('/api/folders', (request, response) => {
   const id = md5(folder)
 	const folder_object = {folder_title: folder, id: id}
 
+	if(!folder) {
+		response.status(422).send('No folder provided');
+	}
+
   app.locals.folders.push(folder_object)
   response.status(201).json(folder_object)
 });
@@ -56,6 +60,10 @@ app.post('/api/urls', (request, response) => {
 		original_url: url,
 		short_url: short_url,
 		created_at: created_at
+	}
+
+	if(!url) {
+		response.status(422).send('No url provided in the input field.')
 	}
 
 	app.locals.urls.push(url_object)
